@@ -1,4 +1,9 @@
+import { redirect } from "next/navigation"
+import { cookies } from "next/headers"
+import { jwtVerify } from "jose"
 import Link from "next/link"
+import connectDB from "@/lib/mongodb"
+import User from "@/models/User"
 import { ArrowRight, Sparkles, CheckCircle2, Circle } from "lucide-react"
 import {
   Card,
@@ -11,7 +16,32 @@ import {
 import { Progress } from "@/components/ui/progress"
 import { Button } from "@/components/ui/button"
 
-export default function DashboardPage() {
+const JWT_SECRET = process.env.JWT_SECRET || "peace-driven-default-secret-key"
+
+export default async function DashboardPage() {
+  const cookieStore = await cookies()
+  const token = cookieStore.get("auth_token")?.value
+
+  if (!token) {
+    redirect("/login")
+  }
+
+  try {
+    const { payload } = await jwtVerify(token, new TextEncoder().encode(JWT_SECRET))
+    const userId = (payload as any).userId
+
+    await connectDB()
+    const user = await User.findById(userId)
+
+    if (user && !user.onboardingStatus?.hasSeenCelebration) {
+      redirect("/success")
+    }
+  } catch (error: any) {
+    if (error.digest?.startsWith("NEXT_REDIRECT")) throw error
+    console.error("Dashboard auth check error:", error)
+    redirect("/api/auth/logout")
+  }
+
   // Static state for now
   const progressValue = 20
   const currentPhase = "Connection"

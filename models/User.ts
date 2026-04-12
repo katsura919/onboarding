@@ -6,6 +6,7 @@ export interface IUser extends Document {
     firstName: string
     lastName: string
     onboardingStatus: {
+        hasSeenCelebration: boolean
         currentPhase: number
         currentStep: string
         isCompleted: boolean
@@ -51,6 +52,7 @@ const UserSchema = new Schema<IUser>(
         firstName: { type: String, required: true },
         lastName: { type: String, required: true },
         onboardingStatus: {
+            hasSeenCelebration: { type: Boolean, default: false },
             currentPhase: { type: Number, default: 1 },
             currentStep: { type: String, default: "1A" },
             isCompleted: { type: Boolean, default: false },
