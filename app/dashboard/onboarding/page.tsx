@@ -9,6 +9,7 @@ import { Phase1Connection } from "@/components/onboarding/phases/Phase1Connectio
 import { Phase2Awareness } from "@/components/onboarding/phases/Phase2Awareness"
 import { Phase3Stabilization } from "@/components/onboarding/phases/Phase3Stabilization"
 import { Phase4Activation } from "@/components/onboarding/phases/Phase4Activation"
+const LOCKED_STEPS = ["1F", "2C", "3E"]
 
 export default function OnboardingPage() {
   const router = useRouter()
@@ -130,6 +131,12 @@ export default function OnboardingPage() {
       else if (nextStep === "4C") {
         // Completion
         dataToSave["onboardingStatus.isCompleted"] = true
+      }
+
+      if (LOCKED_STEPS.includes(nextStep)) {
+        toast.info("This phase is locked for now.")
+        setIsUpdating(false)
+        return
       }
 
       const res = await fetch("/api/onboarding/progress", {
@@ -283,6 +290,7 @@ export default function OnboardingPage() {
   }
 
   const currentStep = status?.currentStep || "1A"
+  const isLocked = LOCKED_STEPS.includes(currentStep)
 
   return (
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-1000">
@@ -527,23 +535,28 @@ export default function OnboardingPage() {
             {currentStep === "1C" ? "Final Step of Phase 1" : "Ready to proceed?"}
           </p>
           <p className="font-semibold text-sm">
-            {currentStep === "1A" && "Next: Getting to Know You"}
-            {currentStep === "1B" && "Next: Your Triage"}
-            {currentStep === "1C" && "Next: Open Share"}
-            {currentStep === "1D" && "Next: Getting to Know Us"}
-            {currentStep === "1E" && "Next: Schedule Orientation"}
-            {currentStep === "1F" && "Next: 360° Evaluation"}
-            {currentStep === "2A" && "Next: Growth Inputs"}
-            {currentStep === "2B" && "Next: Evening Pulse"}
-            {currentStep === "2C" && "Next: Phase 3 Stabilization"}
-            {currentStep === "3A" && "Next: Vision Statements"}
-            {currentStep === "3B" && "Next: Ideal Day Narrative"}
-            {currentStep === "3C" && "Next: Word of the Year"}
-            {currentStep === "3D" && "Next: Family Mission"}
-            {currentStep === "3E" && "Next: Final Kickoff Phase"}
-            {currentStep === "4A" && "Next: Community Access"}
-            {currentStep === "4B" && "Next: Wealth Strategy"}
-            {currentStep === "4C" && "Finish Onboarding"}
+            {isLocked && "Next Phase Coming Soon..."}
+            {!isLocked && (
+              <>
+                {currentStep === "1A" && "Next: Getting to Know You"}
+                {currentStep === "1B" && "Next: Your Triage"}
+                {currentStep === "1C" && "Next: Open Share"}
+                {currentStep === "1D" && "Next: Getting to Know Us"}
+                {currentStep === "1E" && "Next: Schedule Orientation"}
+                {currentStep === "1F" && "Next: 360° Evaluation"}
+                {currentStep === "2A" && "Next: Growth Inputs"}
+                {currentStep === "2B" && "Next: Evening Pulse"}
+                {currentStep === "2C" && "Next: Phase 3 Stabilization"}
+                {currentStep === "3A" && "Next: Vision Statements"}
+                {currentStep === "3B" && "Next: Ideal Day Narrative"}
+                {currentStep === "3C" && "Next: Word of the Year"}
+                {currentStep === "3D" && "Next: Family Mission"}
+                {currentStep === "3E" && "Next: Final Kickoff Phase"}
+                {currentStep === "4A" && "Next: Community Access"}
+                {currentStep === "4B" && "Next: Wealth Strategy"}
+                {currentStep === "4C" && "Finish Onboarding"}
+              </>
+            )}
           </p>
         </div>
         
@@ -561,10 +574,10 @@ export default function OnboardingPage() {
           
           <InteractiveHoverButton 
             onClick={handleContinue}
-            disabled={isUpdating}
+            disabled={isUpdating || isLocked}
             className="h-11 px-8"
           >
-            {isUpdating ? "Saving..." : (currentStep === "4C" ? (status?.onboardingStatus?.isCompleted ? "Return to Dashboard" : "Complete Pathway") : "Continue")}
+            {isUpdating ? "Saving..." : (isLocked ? "Phase Locked" : (currentStep === "4C" ? (status?.onboardingStatus?.isCompleted ? "Return to Dashboard" : "Complete Pathway") : "Continue"))}
           </InteractiveHoverButton>
         </div>
       </div>
