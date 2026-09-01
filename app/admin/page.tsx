@@ -3,14 +3,6 @@ import { cookies } from "next/headers"
 import { jwtVerify } from "jose"
 import { findUserById, listUsers } from "@/lib/db/users"
 import { AdminUsersTable } from "@/components/admin/users-table"
-import { ShieldCheck } from "lucide-react"
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
 
 const JWT_SECRET = process.env.JWT_SECRET || "peace-driven-default-secret-key"
 
@@ -24,7 +16,10 @@ export default async function AdminPage() {
 
     let userId: string
     try {
-        const { payload } = await jwtVerify(token, new TextEncoder().encode(JWT_SECRET))
+        const { payload } = await jwtVerify(
+            token,
+            new TextEncoder().encode(JWT_SECRET)
+        )
         userId = (payload as any).userId
     } catch {
         redirect("/login")
@@ -47,33 +42,34 @@ export default async function AdminPage() {
         <div className="container mx-auto max-w-6xl animate-in p-4 duration-700 fade-in slide-in-from-bottom-4 sm:p-6 lg:p-8">
             <div className="flex flex-col space-y-8">
                 <div className="flex flex-col space-y-2">
-                    <div className="flex items-center gap-2 text-primary">
-                        <ShieldCheck className="h-5 w-5" />
-                        <span className="text-xs font-bold tracking-widest uppercase">
-                            Admin
-                        </span>
+                    <div className="inline-flex items-center gap-3 text-[10px] font-semibold tracking-[0.2em] text-muted-foreground uppercase">
+                        <span className="h-px w-5 bg-border" />
+                        Admin
                     </div>
-                    <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                    <h1 className="font-serif text-3xl font-medium tracking-tight">
                         Users
                     </h1>
                     <p className="text-muted-foreground">
-                        {users.length} {users.length === 1 ? "user" : "users"} signed
-                        up so far.
+                        {users.length} {users.length === 1 ? "user" : "users"}{" "}
+                        signed up so far.
                     </p>
                 </div>
 
-                <Card className="border-border bg-background shadow-lg">
-                    <CardHeader>
-                        <CardTitle className="text-lg">All Users</CardTitle>
-                        <CardDescription>
-                            Every signup, where they are in the Activation Pathway,
-                            and whether their account is active.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className="p-0">
-                        <AdminUsersTable initialUsers={users} viewerId={viewer.id} />
-                    </CardContent>
-                </Card>
+                <div className="rounded-3xl border border-border/60 bg-card/40">
+                    <div className="border-b border-border/50 px-6 py-5">
+                        <h2 className="font-serif text-lg font-medium">
+                            All Users
+                        </h2>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                            Every signup, where they are in the Activation
+                            Pathway, and whether their account is active.
+                        </p>
+                    </div>
+                    <AdminUsersTable
+                        initialUsers={users}
+                        viewerId={viewer.id}
+                    />
+                </div>
             </div>
         </div>
     )
