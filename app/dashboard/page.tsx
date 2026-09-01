@@ -4,16 +4,9 @@ import { cookies } from "next/headers"
 import { jwtVerify } from "jose"
 import Link from "next/link"
 import { findUserById } from "@/lib/db/users"
-import { ArrowRight, Sparkles, CheckCircle2, Circle } from "lucide-react"
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
+import { ArrowRight, CheckCircle2 } from "lucide-react"
 import { Progress } from "@/components/ui/progress"
+import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button"
 import { Button } from "@/components/ui/button"
 
 const JWT_SECRET = process.env.JWT_SECRET || "peace-driven-default-secret-key"
@@ -84,6 +77,13 @@ export default async function DashboardPage() {
             4: "Activation",
         }
 
+        const phaseObjectives: Record<number, string> = {
+            1: "I feel seen and welcomed.",
+            2: "I see my life clearly now.",
+            3: "I am stepping into the life I desire.",
+            4: "I am fully activated and supported.",
+        }
+
         const stepNames: Record<string, string> = {
             "1A": "Foundation Video",
             "1B": "SNAP Snapshot",
@@ -107,217 +107,193 @@ export default async function DashboardPage() {
         const nextStepName = stepNames[status.currentStep] || "Next Assessment"
 
         return (
-            <div className="container mx-auto max-w-7xl animate-in p-4 duration-700 fade-in slide-in-from-bottom-4 sm:p-6 lg:p-8">
-                <div className="flex flex-col space-y-8">
+            <div className="container mx-auto max-w-6xl animate-in p-4 duration-700 fade-in slide-in-from-bottom-4 sm:p-6 lg:px-8 lg:py-12">
+                <div className="flex flex-col space-y-12">
                     {/* Welcome Section */}
-                    <div className="flex flex-col space-y-2">
-                        <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
-                            Welcome home, {user?.firstName || "Leader"}
+                    <div className="max-w-2xl space-y-3">
+                        <div className="inline-flex items-center gap-3 text-[10px] font-semibold tracking-[0.2em] text-muted-foreground uppercase">
+                            <span className="h-px w-5 bg-border" />
+                            Your Activation Pathway
+                        </div>
+                        <h1 className="font-serif text-3xl font-medium tracking-tight sm:text-4xl">
+                            Welcome home,{" "}
+                            <span className="text-primary italic">
+                                {user?.firstName || "Leader"}
+                            </span>
                         </h1>
-                        <p className="text-lg text-muted-foreground">
-                            Your journey to a peace-driven leadership begins
-                            here.
+                        <p className="font-serif text-lg text-muted-foreground italic">
+                            &ldquo;You no longer have to carry everything
+                            alone.&rdquo;
                         </p>
                     </div>
 
-                    {/* Onboarding Overview Card */}
-                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                        <Card className="relative overflow-hidden border-primary/20 bg-gradient-to-br from-background to-primary/5 shadow-xl transition-all duration-300 hover:shadow-2xl hover:shadow-primary/5 md:col-span-2">
-                            <div className="pointer-events-none absolute top-0 right-0 p-4 opacity-10">
-                                <Sparkles className="h-24 w-24" />
-                            </div>
+                    {/* Onboarding Overview */}
+                    <div className="grid gap-8 lg:grid-cols-3">
+                        <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-card/40 p-8 sm:p-10 lg:col-span-2">
+                            <span
+                                aria-hidden="true"
+                                className="pointer-events-none absolute -top-6 right-2 font-serif text-[9rem] leading-none font-medium text-primary/[0.06] select-none"
+                            >
+                                0{status.currentPhase}
+                            </span>
 
-                            <CardHeader className="pb-4">
-                                <div className="mb-2 flex items-center gap-2">
-                                    <span className="rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 text-xs font-bold text-primary">
-                                        MVP Activation
-                                    </span>
-                                </div>
-                                <CardTitle className="text-2xl font-bold">
-                                    The Peace-Driven Leader
-                                    <span className="text-primary">™</span>{" "}
-                                    Activation Pathway
-                                </CardTitle>
-                                <CardDescription className="text-base">
-                                    Follow this guided journey to activate your
-                                    peace and stabilize your leadership.
-                                </CardDescription>
-                            </CardHeader>
-
-                            <CardContent className="space-y-6">
+                            <div className="relative space-y-8">
                                 <div className="space-y-2">
-                                    <div className="flex justify-between text-sm font-medium">
-                                        <span className="flex items-center gap-2">
-                                            <span className="text-primary">
-                                                {currentPhaseName} Phase
-                                            </span>
-                                            <span className="text-muted-foreground">
-                                                •
-                                            </span>
-                                            <span>
-                                                {progressValue}% Complete
-                                            </span>
-                                        </span>
-                                        <span className="font-bold text-muted-foreground">
-                                            Level {status.currentPhase}
-                                        </span>
+                                    <span className="text-[10px] font-semibold tracking-[0.2em] text-primary uppercase">
+                                        Phase {status.currentPhase} ·{" "}
+                                        {currentPhaseName}
+                                    </span>
+                                    <h2 className="font-serif text-2xl font-medium tracking-tight">
+                                        &ldquo;
+                                        {phaseObjectives[status.currentPhase] ||
+                                            "Fully activated and supported."}
+                                        &rdquo;
+                                    </h2>
+                                    <p className="text-muted-foreground">
+                                        Follow this guided pathway to activate
+                                        your peace and stabilize your
+                                        leadership.
+                                    </p>
+                                </div>
+
+                                <div className="space-y-3">
+                                    <div className="flex items-center justify-between text-xs font-medium text-muted-foreground">
+                                        <span>{progressValue}% complete</span>
+                                        <span>16 steps total</span>
                                     </div>
                                     <Progress
                                         value={progressValue}
-                                        className="h-3 bg-primary/10"
+                                        className="h-1.5 bg-primary/10"
                                     />
                                 </div>
 
-                                <div className="grid grid-cols-1 gap-4 pt-2 sm:grid-cols-2">
-                                    <div className="flex items-center gap-3 rounded-xl border border-border bg-background/50 p-3 shadow-sm">
-                                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500/10 text-green-600">
-                                            <CheckCircle2 className="h-5 w-5" />
-                                        </div>
+                                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                    <div className="flex items-center gap-3 rounded-2xl border border-border/60 p-4">
+                                        <CheckCircle2
+                                            className="h-4 w-4 shrink-0 text-primary"
+                                            strokeWidth={1.5}
+                                        />
                                         <div className="flex flex-col">
-                                            <span className="text-xs font-bold text-muted-foreground">
-                                                COMPLETED
+                                            <span className="text-[10px] font-semibold tracking-wider text-muted-foreground uppercase">
+                                                Completed
                                             </span>
-                                            <span className="text-sm font-semibold">
+                                            <span className="text-sm font-medium">
                                                 Initiation Phase
                                             </span>
                                         </div>
                                     </div>
-                                    <div className="flex animate-pulse items-center gap-3 rounded-xl border border-primary/10 bg-primary/5 p-3 shadow-sm">
-                                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
-                                            <Circle className="h-5 w-5 fill-primary/20" />
-                                        </div>
-                                        <div className="flex flex-col">
-                                            <span className="text-xs font-bold tracking-tighter text-primary uppercase">
+                                    <div className="flex items-center gap-3 rounded-2xl border border-primary/20 bg-primary/[0.04] p-4">
+                                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                                        <div className="flex min-w-0 flex-col">
+                                            <span className="text-[10px] font-semibold tracking-wider text-primary uppercase">
                                                 Current Action
                                             </span>
-                                            <span className="truncate text-sm font-semibold">
+                                            <span className="truncate text-sm font-medium">
                                                 {nextStepName}
                                             </span>
                                         </div>
                                     </div>
                                 </div>
-                            </CardContent>
 
-                            <CardFooter className="pt-2">
-                                <Button
-                                    asChild
-                                    className="group h-12 w-full rounded-2xl px-8 transition-all hover:pr-10 sm:w-auto"
+                                <Link
+                                    href="/dashboard/onboarding"
+                                    className="inline-block"
                                 >
-                                    <Link
-                                        href="/dashboard/onboarding"
-                                        className="flex items-center"
-                                    >
+                                    <InteractiveHoverButton className="h-12 px-8">
                                         {status.isCompleted
                                             ? "View Journey"
                                             : "Resume Journey"}
-                                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                                    </Link>
-                                </Button>
-                            </CardFooter>
-                        </Card>
+                                    </InteractiveHoverButton>
+                                </Link>
+                            </div>
+                        </div>
 
                         {/* Side Info / Support Card */}
                         <div className="space-y-6">
-                            <Card className="overflow-hidden border-border bg-background shadow-lg">
-                                <CardHeader className="pb-2">
-                                    <CardTitle className="text-lg">
+                            <div className="overflow-hidden rounded-3xl border border-border/60 bg-card/40">
+                                <div className="border-b border-border/50 px-6 py-5">
+                                    <h3 className="font-serif text-lg font-medium">
                                         Journey Roadmap
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent className="p-0">
-                                    <div className="flex flex-col">
-                                        {[1, 2, 3, 4].map((phaseNum) => {
-                                            const isActive =
-                                                status.currentPhase === phaseNum
-                                            const isComplete =
-                                                status.currentPhase >
-                                                    phaseNum ||
-                                                (status.isCompleted &&
-                                                    phaseNum === 4)
-                                            const isLocked =
-                                                status.currentPhase < phaseNum
+                                    </h3>
+                                </div>
+                                <div className="flex flex-col">
+                                    {[1, 2, 3, 4].map((phaseNum) => {
+                                        const isActive =
+                                            status.currentPhase === phaseNum
+                                        const isComplete =
+                                            status.currentPhase > phaseNum ||
+                                            (status.isCompleted &&
+                                                phaseNum === 4)
+                                        const isLocked =
+                                            status.currentPhase < phaseNum
 
-                                            return (
+                                        return (
+                                            <div
+                                                key={phaseNum}
+                                                className={cn(
+                                                    "flex items-center gap-4 border-b border-border/40 px-6 py-4 last:border-0",
+                                                    isActive &&
+                                                        "bg-primary/[0.04]"
+                                                )}
+                                            >
                                                 <div
-                                                    key={phaseNum}
                                                     className={cn(
-                                                        "flex items-center gap-4 border-b border-border/50 px-6 py-4 last:border-0",
+                                                        "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border font-serif text-xs",
+                                                        isComplete &&
+                                                            "border-primary/40 bg-primary/10 text-primary",
                                                         isActive &&
-                                                            "bg-primary/5"
+                                                            "border-primary text-primary",
+                                                        isLocked &&
+                                                            "border-border/60 text-muted-foreground/60"
                                                     )}
                                                 >
-                                                    <div
+                                                    {isComplete ? (
+                                                        <CheckCircle2 className="h-3.5 w-3.5" />
+                                                    ) : (
+                                                        phaseNum
+                                                    )}
+                                                </div>
+                                                <div className="flex min-w-0 flex-col">
+                                                    <span
                                                         className={cn(
-                                                            "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2",
-                                                            isComplete &&
-                                                                "border-green-500 bg-green-500 text-white",
-                                                            isActive &&
-                                                                "border-primary bg-primary/10 font-bold text-primary",
-                                                            isLocked &&
-                                                                "border-border text-muted-foreground"
+                                                            "text-sm font-medium",
+                                                            isLocked
+                                                                ? "text-muted-foreground/60"
+                                                                : "text-foreground"
                                                         )}
                                                     >
-                                                        {isComplete ? (
-                                                            <CheckCircle2 className="h-4 w-4" />
-                                                        ) : (
-                                                            <span className="text-xs">
-                                                                {phaseNum}
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                    <div className="flex min-w-0 flex-col">
-                                                        <span
-                                                            className={cn(
-                                                                "text-sm font-semibold",
-                                                                isLocked
-                                                                    ? "text-muted-foreground"
-                                                                    : "text-neutral-900 dark:text-neutral-50"
-                                                            )}
-                                                        >
-                                                            Phase {phaseNum}:{" "}
-                                                            {
-                                                                phaseNames[
-                                                                    phaseNum
-                                                                ]
-                                                            }
+                                                        Phase {phaseNum}:{" "}
+                                                        {phaseNames[phaseNum]}
+                                                    </span>
+                                                    {isActive && (
+                                                        <span className="text-[10px] font-semibold tracking-wider text-primary uppercase">
+                                                            Currently active
                                                         </span>
-                                                        {isActive && (
-                                                            <span className="animate-pulse text-[10px] font-bold tracking-wider text-primary uppercase">
-                                                                Currently Active
-                                                            </span>
-                                                        )}
-                                                    </div>
+                                                    )}
                                                 </div>
-                                            )
-                                        })}
-                                    </div>
-                                </CardContent>
-                            </Card>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
 
-                            <Card className="border-border bg-background shadow-lg">
-                                <CardHeader>
-                                    <CardTitle className="text-lg">
-                                        Need Support?
-                                    </CardTitle>
-                                    <CardDescription>
-                                        Your ProTeam is here to help you every
-                                        step of the way.
-                                    </CardDescription>
-                                </CardHeader>
-                                <CardContent className="space-y-4">
-                                    <div className="text-sm leading-relaxed text-muted-foreground">
-                                        Whether you have questions about results
-                                        or need help stabilizing your rhythm,
-                                        click below.
-                                    </div>
-                                    <Button
-                                        variant="outline"
-                                        className="w-full rounded-xl"
-                                    >
-                                        Message ProTeam
-                                    </Button>
-                                </CardContent>
-                            </Card>
+                            <div className="rounded-3xl border border-border/60 bg-card/40 p-6">
+                                <h3 className="font-serif text-lg font-medium">
+                                    Need Support?
+                                </h3>
+                                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                                    Your ProTeam is here to help you every step
+                                    of the way, whether it&rsquo;s a question
+                                    about results or your rhythm.
+                                </p>
+                                <Button
+                                    variant="outline"
+                                    className="mt-4 w-full rounded-xl"
+                                >
+                                    Message ProTeam
+                                    <ArrowRight className="ml-1 h-3.5 w-3.5" />
+                                </Button>
+                            </div>
                         </div>
                     </div>
                 </div>
