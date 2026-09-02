@@ -9,7 +9,7 @@ import { Phase1Connection } from "@/components/onboarding/phases/Phase1Connectio
 import { Phase2Awareness } from "@/components/onboarding/phases/Phase2Awareness"
 import { Phase3Stabilization } from "@/components/onboarding/phases/Phase3Stabilization"
 import { Phase4Activation } from "@/components/onboarding/phases/Phase4Activation"
-const LOCKED_STEPS = ["1F", "2C", "3E"]
+const LOCKED_STEPS = ["1G", "2C", "3E"]
 
 export default function OnboardingPage() {
     const router = useRouter()
@@ -44,6 +44,33 @@ export default function OnboardingPage() {
                         open_share: data.connection?.openShare || "",
                         culture_takeaways:
                             data.connection?.cultureTakeaways || "",
+                        homeAudit_chaos:
+                            data.connection?.homeAudit?.chaos || "",
+                        homeAudit_overwhelmTime:
+                            data.connection?.homeAudit?.overwhelmTime || "",
+                        homeAudit_invisibleLabor:
+                            data.connection?.homeAudit?.invisibleLabor || "",
+                        homeAudit_90DayCost:
+                            data.connection?.homeAudit?.ninetyDayCost || "",
+                        homeAudit_routines:
+                            data.connection?.homeAudit?.routines || "",
+                        homeAudit_breakdownAreas:
+                            data.connection?.homeAudit?.breakdownAreas || "",
+                        homeAudit_assumedResponsibilities:
+                            data.connection?.homeAudit
+                                ?.assumedResponsibilities || "",
+                        homeAudit_familyWord:
+                            data.connection?.homeAudit?.familyWord || "",
+                        homeAudit_ownVsDirect:
+                            data.connection?.homeAudit?.ownVsDirect || "",
+                        homeAudit_overFunctioning:
+                            data.connection?.homeAudit?.overFunctioning || "",
+                        homeAudit_peacefulVision:
+                            data.connection?.homeAudit?.peacefulVision || "",
+                        homeAudit_oneSystemFix:
+                            data.connection?.homeAudit?.oneSystemFix || "",
+                        homeAudit_commitment:
+                            data.connection?.homeAudit?.commitment || "",
                         // Phase 2
                         awareness_360: data.awareness?.evaluation360 || [
                             { name: "", email: "" },
@@ -105,6 +132,33 @@ export default function OnboardingPage() {
             } else if (nextStep === "1E") {
                 dataToSave["connection.cultureTakeaways"] =
                     formData.culture_takeaways
+            } else if (nextStep === "1F") {
+                dataToSave["connection.homeAudit.chaos"] =
+                    formData.homeAudit_chaos
+                dataToSave["connection.homeAudit.overwhelmTime"] =
+                    formData.homeAudit_overwhelmTime
+                dataToSave["connection.homeAudit.invisibleLabor"] =
+                    formData.homeAudit_invisibleLabor
+                dataToSave["connection.homeAudit.ninetyDayCost"] =
+                    formData.homeAudit_90DayCost
+                dataToSave["connection.homeAudit.routines"] =
+                    formData.homeAudit_routines
+                dataToSave["connection.homeAudit.breakdownAreas"] =
+                    formData.homeAudit_breakdownAreas
+                dataToSave["connection.homeAudit.assumedResponsibilities"] =
+                    formData.homeAudit_assumedResponsibilities
+                dataToSave["connection.homeAudit.familyWord"] =
+                    formData.homeAudit_familyWord
+                dataToSave["connection.homeAudit.ownVsDirect"] =
+                    formData.homeAudit_ownVsDirect
+                dataToSave["connection.homeAudit.overFunctioning"] =
+                    formData.homeAudit_overFunctioning
+                dataToSave["connection.homeAudit.peacefulVision"] =
+                    formData.homeAudit_peacefulVision
+                dataToSave["connection.homeAudit.oneSystemFix"] =
+                    formData.homeAudit_oneSystemFix
+                dataToSave["connection.homeAudit.commitment"] =
+                    formData.homeAudit_commitment
             } else if (nextStep === "2A") {
                 dataToSave["awareness.evaluation360"] = formData.awareness_360
             } else if (nextStep === "2B") {
@@ -142,7 +196,8 @@ export default function OnboardingPage() {
             else if (nextStep === "1C") nextStep = "1D"
             else if (nextStep === "1D") nextStep = "1E"
             else if (nextStep === "1E") nextStep = "1F"
-            else if (nextStep === "1F") {
+            else if (nextStep === "1F") nextStep = "1G"
+            else if (nextStep === "1G") {
                 nextPhase = 2
                 nextStep = "2A"
             } else if (nextStep === "2A") nextStep = "2B"
@@ -227,6 +282,33 @@ export default function OnboardingPage() {
             } else if (currentStep === "1E") {
                 dataToSave["connection.cultureTakeaways"] =
                     formData.culture_takeaways
+            } else if (currentStep === "1F") {
+                dataToSave["connection.homeAudit.chaos"] =
+                    formData.homeAudit_chaos
+                dataToSave["connection.homeAudit.overwhelmTime"] =
+                    formData.homeAudit_overwhelmTime
+                dataToSave["connection.homeAudit.invisibleLabor"] =
+                    formData.homeAudit_invisibleLabor
+                dataToSave["connection.homeAudit.ninetyDayCost"] =
+                    formData.homeAudit_90DayCost
+                dataToSave["connection.homeAudit.routines"] =
+                    formData.homeAudit_routines
+                dataToSave["connection.homeAudit.breakdownAreas"] =
+                    formData.homeAudit_breakdownAreas
+                dataToSave["connection.homeAudit.assumedResponsibilities"] =
+                    formData.homeAudit_assumedResponsibilities
+                dataToSave["connection.homeAudit.familyWord"] =
+                    formData.homeAudit_familyWord
+                dataToSave["connection.homeAudit.ownVsDirect"] =
+                    formData.homeAudit_ownVsDirect
+                dataToSave["connection.homeAudit.overFunctioning"] =
+                    formData.homeAudit_overFunctioning
+                dataToSave["connection.homeAudit.peacefulVision"] =
+                    formData.homeAudit_peacefulVision
+                dataToSave["connection.homeAudit.oneSystemFix"] =
+                    formData.homeAudit_oneSystemFix
+                dataToSave["connection.homeAudit.commitment"] =
+                    formData.homeAudit_commitment
             } else if (currentStep === "2A") {
                 dataToSave["awareness.evaluation360"] = formData.awareness_360
             } else if (currentStep === "2B") {
@@ -281,9 +363,10 @@ export default function OnboardingPage() {
             else if (prevStep === "1D") prevStep = "1C"
             else if (prevStep === "1E") prevStep = "1D"
             else if (prevStep === "1F") prevStep = "1E"
+            else if (prevStep === "1G") prevStep = "1F"
             else if (prevStep === "2A") {
                 prevPhase = 1
-                prevStep = "1F"
+                prevStep = "1G"
             } else if (prevStep === "2B") prevStep = "2A"
             else if (prevStep === "2C") prevStep = "2B"
             else if (prevStep === "3A") {
@@ -406,6 +489,18 @@ export default function OnboardingPage() {
                 )}
 
                 {currentStep === "1F" && (
+                    <>
+                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                            Your Peace-Driven Home Audit
+                        </h1>
+                        <p className="text-xl font-medium text-muted-foreground italic">
+                            &ldquo;An honest look at where things stand—not the
+                            highlight reel.&rdquo;
+                        </p>
+                    </>
+                )}
+
+                {currentStep === "1G" && (
                     <>
                         <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
                             Book Your Call
@@ -606,9 +701,10 @@ export default function OnboardingPage() {
                                 {currentStep === "1C" && "Next: Open Share"}
                                 {currentStep === "1D" &&
                                     "Next: Getting to Know Us"}
-                                {currentStep === "1E" &&
-                                    "Next: Schedule Orientation"}
+                                {currentStep === "1E" && "Next: Home Audit"}
                                 {currentStep === "1F" &&
+                                    "Next: Schedule Orientation"}
+                                {currentStep === "1G" &&
                                     "Next: 360° Evaluation"}
                                 {currentStep === "2A" && "Next: Growth Inputs"}
                                 {currentStep === "2B" && "Next: Evening Pulse"}
