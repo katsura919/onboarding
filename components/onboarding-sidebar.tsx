@@ -177,7 +177,8 @@ export function OnboardingSidebar({
                 { id: "1C", label: "Your Triage" },
                 { id: "1D", label: "Open Share" },
                 { id: "1E", label: "Getting to Know Us" },
-                { id: "1F", label: "Schedule Orientation" },
+                { id: "1F", label: "Home Audit" },
+                { id: "1G", label: "Schedule Orientation" },
             ],
         },
         {
