@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -118,7 +119,12 @@ export function AdminUsersTable({
                                 className="border-b border-border/50 last:border-0"
                             >
                                 <td className="px-6 py-4 font-semibold whitespace-nowrap">
-                                    {user.firstName} {user.lastName}
+                                    <Link
+                                        href={`/admin/users/${user.id}`}
+                                        className="hover:text-primary hover:underline"
+                                    >
+                                        {user.firstName} {user.lastName}
+                                    </Link>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-muted-foreground">
                                     {user.email}
@@ -140,7 +146,9 @@ export function AdminUsersTable({
                                                 : "border-primary/20 bg-primary/10 text-primary"
                                         )}
                                     >
-                                        {status?.isCompleted ? "Completed" : "In Progress"}
+                                        {status?.isCompleted
+                                            ? "Completed"
+                                            : "In Progress"}
                                     </span>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
@@ -159,16 +167,20 @@ export function AdminUsersTable({
                                         }
                                         className={cn(
                                             "rounded-full border px-2.5 py-1 text-xs font-bold outline-none disabled:opacity-50",
-                                            PAYMENT_BADGE_STYLES[user.paymentStatus]
+                                            PAYMENT_BADGE_STYLES[
+                                                user.paymentStatus
+                                            ]
                                         )}
                                     >
-                                        {(Object.keys(PAYMENT_LABELS) as PaymentStatus[]).map(
-                                            (value) => (
-                                                <option key={value} value={value}>
-                                                    {PAYMENT_LABELS[value]}
-                                                </option>
-                                            )
-                                        )}
+                                        {(
+                                            Object.keys(
+                                                PAYMENT_LABELS
+                                            ) as PaymentStatus[]
+                                        ).map((value) => (
+                                            <option key={value} value={value}>
+                                                {PAYMENT_LABELS[value]}
+                                            </option>
+                                        ))}
                                     </select>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
@@ -178,7 +190,11 @@ export function AdminUsersTable({
                                         disabled={isPending}
                                         onBlur={(e) => {
                                             const value = e.target.value || null
-                                            if (value === (user.renewalDate ?? null)) return
+                                            if (
+                                                value ===
+                                                (user.renewalDate ?? null)
+                                            )
+                                                return
                                             patchUser(
                                                 user.id,
                                                 { renewalDate: value },
@@ -187,7 +203,8 @@ export function AdminUsersTable({
                                         }}
                                         className={cn(
                                             "w-[9.5rem] rounded-lg border border-border/50 bg-background px-2 py-1 text-xs outline-none disabled:opacity-50",
-                                            renewalIsSoon && "border-amber-500/40 text-amber-600"
+                                            renewalIsSoon &&
+                                                "border-amber-500/40 text-amber-600"
                                         )}
                                     />
                                 </td>
@@ -204,36 +221,61 @@ export function AdminUsersTable({
                                     </span>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-muted-foreground">
-                                    {new Date(user.createdAt).toLocaleDateString()}
+                                    {new Date(
+                                        user.createdAt
+                                    ).toLocaleDateString()}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-right">
-                                    {isSelf ? (
-                                        <span className="text-xs text-muted-foreground">You</span>
-                                    ) : (
+                                <td className="px-6 py-4 text-right whitespace-nowrap">
+                                    <div className="flex items-center justify-end gap-2">
                                         <Button
-                                            variant={user.isActive ? "outline" : "default"}
+                                            asChild
+                                            variant="ghost"
                                             size="sm"
-                                            disabled={isPending}
-                                            onClick={() =>
-                                                patchUser(
-                                                    user.id,
-                                                    { isActive: !user.isActive },
-                                                    user.isActive
-                                                        ? "Account paused"
-                                                        : "Account reactivated"
-                                                )
-                                            }
                                             className="h-8 rounded-lg px-3 text-xs"
                                         >
-                                            {isPending ? (
-                                                <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                                            ) : user.isActive ? (
-                                                "Pause"
-                                            ) : (
-                                                "Activate"
-                                            )}
+                                            <Link
+                                                href={`/admin/users/${user.id}`}
+                                            >
+                                                View Responses
+                                            </Link>
                                         </Button>
-                                    )}
+                                        {isSelf ? (
+                                            <span className="text-xs text-muted-foreground">
+                                                You
+                                            </span>
+                                        ) : (
+                                            <Button
+                                                variant={
+                                                    user.isActive
+                                                        ? "outline"
+                                                        : "default"
+                                                }
+                                                size="sm"
+                                                disabled={isPending}
+                                                onClick={() =>
+                                                    patchUser(
+                                                        user.id,
+                                                        {
+                                                            isActive:
+                                                                !user.isActive,
+                                                        },
+                                                        user.isActive
+                                                            ? "Account paused"
+                                                            : "Account reactivated"
+                                                    )
+                                                }
+                                                className="h-8 rounded-lg px-3 text-xs"
+                                            >
+                                                {isPending ? (
+                                                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                                                ) : user.isActive ? (
+                                                    "Pause"
+                                                ) : (
+                                                    "Activate"
+                                                )}
+                                            </Button>
+                                        )}
+                                    </div>
                                 </td>
                             </tr>
                         )
