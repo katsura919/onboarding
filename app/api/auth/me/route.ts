@@ -41,6 +41,8 @@ export async function GET() {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 email: user.email,
+                avatarUrl: user.avatarUrl,
+                profile: user.profile,
             },
         })
     } catch (error) {

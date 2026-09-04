@@ -24,6 +24,8 @@ export interface User {
     connection: Record<string, any>
     awareness: Record<string, any>
     stabilization: Record<string, any>
+    profile: Record<string, any>
+    avatarUrl: string | null
     createdAt: string
 }
 
@@ -41,11 +43,13 @@ type UserRow = {
     connection: Record<string, any>
     awareness: Record<string, any>
     stabilization: Record<string, any>
+    profile: Record<string, any>
+    avatar_url: string | null
     created_at: string
 }
 
 const SELECT_COLUMNS =
-    "id, email, password, first_name, last_name, is_admin, is_active, payment_status, renewal_date, onboarding_status, connection, awareness, stabilization, created_at"
+    "id, email, password, first_name, last_name, is_admin, is_active, payment_status, renewal_date, onboarding_status, connection, awareness, stabilization, profile, avatar_url, created_at"
 
 function toUser(row: UserRow): User {
     return {
@@ -62,6 +66,8 @@ function toUser(row: UserRow): User {
         connection: row.connection,
         awareness: row.awareness,
         stabilization: row.stabilization,
+        profile: row.profile || {},
+        avatarUrl: row.avatar_url,
         createdAt: row.created_at,
     }
 }
@@ -164,12 +170,33 @@ export async function setUserPayment(
 ): Promise<User | null> {
     const supabase = getSupabase()
     const payload: Record<string, any> = {}
-    if (input.paymentStatus !== undefined) payload.payment_status = input.paymentStatus
-    if (input.renewalDate !== undefined) payload.renewal_date = input.renewalDate
+    if (input.paymentStatus !== undefined)
+        payload.payment_status = input.paymentStatus
+    if (input.renewalDate !== undefined)
+        payload.renewal_date = input.renewalDate
 
     const { data, error } = await supabase
         .from("users")
         .update(payload)
+        .eq("id", userId)
+        .select(SELECT_COLUMNS)
+        .maybeSingle()
+
+    if (error) throw error
+    return data ? toUser(data as unknown as UserRow) : null
+}
+
+/**
+ * Self-service: set a user's avatar URL after an image upload.
+ */
+export async function setUserAvatar(
+    userId: string,
+    avatarUrl: string | null
+): Promise<User | null> {
+    const supabase = getSupabase()
+    const { data, error } = await supabase
+        .from("users")
+        .update({ avatar_url: avatarUrl })
         .eq("id", userId)
         .select(SELECT_COLUMNS)
         .maybeSingle()
@@ -207,6 +234,7 @@ const JSON_COLUMNS: Record<string, string> = {
     connection: "connection",
     awareness: "awareness",
     stabilization: "stabilization",
+    profile: "profile",
 }
 
 function setPath(target: Record<string, any>, path: string[], value: unknown) {

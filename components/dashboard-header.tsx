@@ -21,6 +21,7 @@ interface UserData {
     firstName: string
     lastName: string
     email: string
+    avatarUrl?: string | null
 }
 
 export function DashboardHeader() {
@@ -85,7 +86,7 @@ export function DashboardHeader() {
                             >
                                 <Avatar className="h-9 w-9 border border-primary/30">
                                     <AvatarImage
-                                        src=""
+                                        src={user?.avatarUrl || ""}
                                         alt={user?.firstName || "User"}
                                     />
                                     <AvatarFallback className="bg-primary/5 font-serif text-xs text-primary">
@@ -123,9 +124,14 @@ export function DashboardHeader() {
                                     <span>Dashboard</span>
                                 </Link>
                             </DropdownMenuItem>
-                            <DropdownMenuItem disabled>
-                                <User className="mr-2 h-4 w-4" />
-                                <span>Profile</span>
+                            <DropdownMenuItem asChild>
+                                <Link
+                                    href="/dashboard/profile"
+                                    className="cursor-pointer"
+                                >
+                                    <User className="mr-2 h-4 w-4" />
+                                    <span>Profile</span>
+                                </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem disabled>
                                 <Settings className="mr-2 h-4 w-4" />
