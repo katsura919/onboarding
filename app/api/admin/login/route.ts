@@ -1,0 +1,80 @@
+import { NextResponse } from "next/server"
+import bcrypt from "bcryptjs"
+import { SignJWT } from "jose"
+import { cookies } from "next/headers"
+import { findUserByEmail } from "@/lib/db/users"
+import { isAdminEmail } from "@/lib/admin"
+
+const JWT_SECRET = process.env.JWT_SECRET || "peace-driven-default-secret-key"
+
+export async function POST(req: Request) {
+    try {
+        const { email, password } = await req.json()
+
+        if (!email || !password) {
+            return NextResponse.json(
+                { error: "Missing fields" },
+                { status: 400 }
+            )
+        }
+
+        // Check the allowlist before touching the DB. Same error as a bad
+        // password below, so this never confirms which emails are admins.
+        if (!isAdminEmail(email)) {
+            return NextResponse.json(
+                { error: "Invalid credentials" },
+                { status: 401 }
+            )
+        }
+
+        const user = await findUserByEmail(email)
+        if (!user || !user.password) {
+            return NextResponse.json(
+                { error: "Invalid credentials" },
+                { status: 401 }
+            )
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password)
+        if (!isMatch) {
+            return NextResponse.json(
+                { error: "Invalid credentials" },
+                { status: 401 }
+            )
+        }
+
+        if (!user.isActive) {
+            return NextResponse.json(
+                { error: "This account has been paused. Contact support." },
+                { status: 403 }
+            )
+        }
+
+        const token = await new SignJWT({ userId: user.id, email: user.email })
+            .setProtectedHeader({ alg: "HS256" })
+            .setIssuedAt()
+            .setExpirationTime("7d")
+            .sign(new TextEncoder().encode(JWT_SECRET))
+
+        const cookieStore = await cookies()
+        cookieStore.set("auth_token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            maxAge: 60 * 60 * 24 * 7, // 1 week
+            path: "/",
+        })
+
+        return NextResponse.json({
+            user: {
+                id: user.id,
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+            },
+        })
+    } catch (error: any) {
+        console.error("Admin login error:", error)
+        return NextResponse.json({ error: "Internal error" }, { status: 500 })
+    }
+}

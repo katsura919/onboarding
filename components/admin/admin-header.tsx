@@ -1,6 +1,6 @@
 "use client"
 
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -8,13 +8,14 @@ import { ModeToggle } from "@/components/mode-toggle"
 
 export function AdminHeader() {
     const router = useRouter()
+    const pathname = usePathname()
 
     async function handleLogout() {
         try {
             const res = await fetch("/api/auth/logout", { method: "POST" })
             if (res.ok) {
                 toast.success("Logged out")
-                router.push("/login")
+                router.push("/admin/login")
                 router.refresh()
             } else {
                 throw new Error("Logout failed")
@@ -23,6 +24,10 @@ export function AdminHeader() {
             toast.error("Error logging out")
         }
     }
+
+    // The login page has no session to log out of, so it renders its own
+    // minimal header instead of this one.
+    if (pathname === "/admin/login") return null
 
     return (
         <header className="border-b border-border/60 bg-background/90 backdrop-blur-md">

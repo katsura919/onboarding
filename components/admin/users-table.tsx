@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { toast } from "sonner"
-import { Loader2 } from "lucide-react"
+import { Download, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import type { PaymentStatus, UserSummary } from "@/lib/db/users"
@@ -238,6 +238,22 @@ export function AdminUsersTable({
                                             >
                                                 View Responses
                                             </Link>
+                                        </Button>
+                                        <Button
+                                            asChild
+                                            variant="ghost"
+                                            size="icon-sm"
+                                            className="rounded-lg text-muted-foreground"
+                                            title="Export responses"
+                                        >
+                                            <a
+                                                href={`/api/admin/users/${user.id}/export`}
+                                            >
+                                                <Download className="h-3.5 w-3.5" />
+                                                <span className="sr-only">
+                                                    Export responses
+                                                </span>
+                                            </a>
                                         </Button>
                                         {isSelf ? (
                                             <span className="text-xs text-muted-foreground">

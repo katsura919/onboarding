@@ -2,10 +2,11 @@ import { redirect, notFound } from "next/navigation"
 import { cookies } from "next/headers"
 import { jwtVerify } from "jose"
 import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, Download } from "lucide-react"
 import { findUserById } from "@/lib/db/users"
 import { isAdminEmail } from "@/lib/admin"
 import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 
 const JWT_SECRET = process.env.JWT_SECRET || "peace-driven-default-secret-key"
 
@@ -88,7 +89,7 @@ export default async function AdminUserDetailPage({
     const token = cookieStore.get("auth_token")?.value
 
     if (!token) {
-        redirect("/login")
+        redirect("/admin/login")
     }
 
     let viewerId: string
@@ -99,7 +100,7 @@ export default async function AdminUserDetailPage({
         )
         viewerId = (payload as any).userId
     } catch {
-        redirect("/login")
+        redirect("/admin/login")
     }
 
     const viewer = await findUserById(viewerId)
@@ -137,12 +138,26 @@ export default async function AdminUserDetailPage({
         <div className="container mx-auto max-w-4xl animate-in p-4 duration-700 fade-in slide-in-from-bottom-4 sm:p-6 lg:p-8">
             <div className="flex flex-col space-y-8">
                 <div className="flex flex-col space-y-4">
-                    <Link
-                        href="/admin"
-                        className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                        <ArrowLeft className="h-3.5 w-3.5" /> Back to Admin
-                    </Link>
+                    <div className="flex flex-wrap items-center justify-between gap-4">
+                        <Link
+                            href="/admin"
+                            className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                        >
+                            <ArrowLeft className="h-3.5 w-3.5" /> Back to Admin
+                        </Link>
+
+                        <Button
+                            asChild
+                            variant="outline"
+                            size="sm"
+                            className="h-9 gap-2 rounded-xl px-3 text-xs"
+                        >
+                            <a href={`/api/admin/users/${user.id}/export`}>
+                                <Download className="h-3.5 w-3.5" />
+                                Export
+                            </a>
+                        </Button>
+                    </div>
 
                     <div className="flex flex-wrap items-start justify-between gap-4">
                         <div className="space-y-2">

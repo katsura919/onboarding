@@ -15,7 +15,7 @@ export default async function AdminPage() {
     const token = cookieStore.get("auth_token")?.value
 
     if (!token) {
-        redirect("/login")
+        redirect("/admin/login")
     }
 
     let userId: string
@@ -26,7 +26,7 @@ export default async function AdminPage() {
         )
         userId = (payload as any).userId
     } catch {
-        redirect("/login")
+        redirect("/admin/login")
     }
 
     const viewer = await findUserById(userId)
