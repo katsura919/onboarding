@@ -62,10 +62,8 @@ const features = [
 export default function Page() {
     return (
         <div className="relative min-h-screen overflow-hidden bg-background font-sans text-foreground">
-            {/* Ambient background: a couple of faint white stripes + film grain, not a repeating tech pattern */}
+            {/* Ambient background: gradient + film grain, not a repeating tech pattern */}
             <div className="pointer-events-none fixed inset-0 z-0">
-                <div className="absolute -top-24 right-[10%] h-[50rem] w-10 -rotate-[16deg] bg-gradient-to-b from-white/15 via-white/[0.06] to-transparent blur-md" />
-                <div className="absolute top-[35%] -left-10 h-[36rem] w-6 -rotate-[16deg] bg-gradient-to-b from-white/10 via-white/[0.04] to-transparent blur-md" />
                 <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/40 to-background" />
                 <svg
                     className="absolute inset-0 h-full w-full opacity-[0.035] mix-blend-overlay"
