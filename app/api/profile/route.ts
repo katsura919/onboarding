@@ -81,7 +81,7 @@ export async function PATCH(req: Request) {
             )
         }
 
-        // Self-service: only ever allow writing under "profile.*" — never
+        // Self-service: only ever allow writing under "profile.*" - never
         // let this route touch payment/admin/onboarding fields.
         const update: Record<string, unknown> = {}
         for (const [key, value] of Object.entries(data)) {

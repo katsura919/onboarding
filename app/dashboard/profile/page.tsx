@@ -310,7 +310,7 @@ export default function ProfilePage() {
                         {user?.email}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                        JPG, PNG, WEBP, or GIF — up to 5MB.
+                        JPG, PNG, WEBP, or GIF, up to 5MB.
                     </p>
                 </div>
             </div>

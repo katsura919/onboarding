@@ -92,7 +92,7 @@ export default function Page() {
                             className="object-contain"
                         />
                     </div>
-                    <span className="font-serif text-lg font-medium tracking-tight whitespace-nowrap text-foreground md:text-xl">
+                    <span className="hidden font-serif text-lg font-medium tracking-tight whitespace-nowrap text-foreground sm:inline md:text-xl">
                         The Peace-Driven Leader
                     </span>
                 </div>
@@ -181,7 +181,7 @@ export default function Page() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3 sm:gap-5 md:gap-6">
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5 md:gap-6">
                         {phases.map((item, i) => (
                             <div
                                 key={i}

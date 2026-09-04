@@ -95,7 +95,7 @@ export async function GET(
             : evaluation360
                   .filter((p) => p?.name || p?.email)
                   .map(
-                      (p) => `${p.name || "—"}${p.email ? ` · ${p.email}` : ""}`
+                      (p) => `${p.name || "-"}${p.email ? ` · ${p.email}` : ""}`
                   )
                   .join("\n")
 
@@ -135,7 +135,7 @@ export async function GET(
                 homeAudit.chaos
             ),
             formatField(
-                "When during the day do you feel the most overwhelmed—and what is happening at that time?",
+                "When during the day do you feel the most overwhelmed, and what is happening at that time?",
                 homeAudit.overwhelmTime
             ),
             formatField(
@@ -147,7 +147,7 @@ export async function GET(
                 homeAudit.ninetyDayCost
             ),
             formatField(
-                "What routines currently exist in your home—and are they actually followed?",
+                "What routines currently exist in your home, and are they actually followed?",
                 homeAudit.routines
             ),
             formatField(
@@ -155,7 +155,7 @@ export async function GET(
                 homeAudit.breakdownAreas
             ),
             formatField(
-                'What responsibilities are clearly assigned—and what is just "assumed" you will handle?',
+                'What responsibilities are clearly assigned, and what is just "assumed" you will handle?',
                 homeAudit.assumedResponsibilities
             ),
             formatField(
@@ -167,7 +167,7 @@ export async function GET(
                 homeAudit.ownVsDirect
             ),
             formatField(
-                "Where are you over-functioning—and where should you actually be leading instead of doing?",
+                "Where are you over-functioning, and where should you actually be leading instead of doing?",
                 homeAudit.overFunctioning
             ),
             formatField(
@@ -236,7 +236,7 @@ export async function GET(
     ]
 
     const header = [
-        "THE PEACE-DRIVEN LEADER — ONBOARDING RESPONSES",
+        "THE PEACE-DRIVEN LEADER: ONBOARDING RESPONSES",
         "",
         `Name: ${user.firstName} ${user.lastName}`,
         `Email: ${user.email}`,

@@ -132,10 +132,10 @@ export function AdminUsersTable({
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     {status?.currentPhase
                                         ? `${status.currentPhase} · ${PHASE_NAMES[status.currentPhase] || ""}`
-                                        : "—"}
+                                        : "-"}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    {status?.currentStep || "—"}
+                                    {status?.currentStep || "-"}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <span

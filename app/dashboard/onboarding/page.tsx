@@ -434,7 +434,7 @@ export default function OnboardingPage() {
 
                 {currentStep === "1A" && (
                     <>
-                        <h1 className="font-serif text-4xl font-medium tracking-tight text-foreground">
+                        <h1 className="font-serif text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
                             The First Step: Connection
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">
@@ -445,11 +445,11 @@ export default function OnboardingPage() {
 
                 {currentStep === "1B" && (
                     <>
-                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                        <h1 className="font-serif text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-50">
                             Getting to Know You
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">
-                            "Insight to support you well—without the need to
+                            "Insight to support you well, without the need to
                             repeat yourself."
                         </p>
                     </>
@@ -457,7 +457,7 @@ export default function OnboardingPage() {
 
                 {currentStep === "1C" && (
                     <>
-                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                        <h1 className="font-serif text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-50">
                             Your Leadership Triage
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">
@@ -468,7 +468,7 @@ export default function OnboardingPage() {
 
                 {currentStep === "1D" && (
                     <>
-                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                        <h1 className="font-serif text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-50">
                             Open Share
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">
@@ -479,7 +479,7 @@ export default function OnboardingPage() {
 
                 {currentStep === "1E" && (
                     <>
-                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                        <h1 className="font-serif text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-50">
                             Getting to Know Us
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">
@@ -490,11 +490,11 @@ export default function OnboardingPage() {
 
                 {currentStep === "1F" && (
                     <>
-                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                        <h1 className="font-serif text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-50">
                             Your Peace-Driven Home Audit
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">
-                            &ldquo;An honest look at where things stand—not the
+                            &ldquo;An honest look at where things stand, not the
                             highlight reel.&rdquo;
                         </p>
                     </>
@@ -502,7 +502,7 @@ export default function OnboardingPage() {
 
                 {currentStep === "1G" && (
                     <>
-                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                        <h1 className="font-serif text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-50">
                             Book Your Call
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">
@@ -514,7 +514,7 @@ export default function OnboardingPage() {
 
                 {currentStep === "2A" && (
                     <>
-                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                        <h1 className="font-serif text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-50">
                             360° Evaluation
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">
@@ -526,7 +526,7 @@ export default function OnboardingPage() {
 
                 {currentStep === "2B" && (
                     <>
-                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                        <h1 className="font-serif text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-50">
                             Growth Inputs
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">
@@ -538,7 +538,7 @@ export default function OnboardingPage() {
 
                 {currentStep === "2C" && (
                     <>
-                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                        <h1 className="font-serif text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-50">
                             Evening Pulse
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">
@@ -549,7 +549,7 @@ export default function OnboardingPage() {
 
                 {currentStep === "3A" && (
                     <>
-                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                        <h1 className="font-serif text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-50">
                             Vision Activation
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">
@@ -561,7 +561,7 @@ export default function OnboardingPage() {
 
                 {currentStep === "3B" && (
                     <>
-                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                        <h1 className="font-serif text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-50">
                             Vision Statements
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">
@@ -572,7 +572,7 @@ export default function OnboardingPage() {
 
                 {currentStep === "3C" && (
                     <>
-                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                        <h1 className="font-serif text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-50">
                             Ideal Day Narrative
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">
@@ -583,7 +583,7 @@ export default function OnboardingPage() {
 
                 {currentStep === "3D" && (
                     <>
-                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                        <h1 className="font-serif text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-50">
                             Word of the Year
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">
@@ -594,7 +594,7 @@ export default function OnboardingPage() {
 
                 {currentStep === "3E" && (
                     <>
-                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                        <h1 className="font-serif text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-50">
                             Family Mission
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">
@@ -605,7 +605,7 @@ export default function OnboardingPage() {
 
                 {currentStep.startsWith("2") && (
                     <>
-                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                        <h1 className="font-serif text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-50">
                             Awareness Phase
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">
@@ -616,7 +616,7 @@ export default function OnboardingPage() {
 
                 {currentStep.startsWith("3") && (
                     <>
-                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                        <h1 className="font-serif text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-50">
                             Stabilization Phase
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">
@@ -627,7 +627,7 @@ export default function OnboardingPage() {
 
                 {currentStep.startsWith("4") && (
                     <>
-                        <h1 className="font-serif text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                        <h1 className="font-serif text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-50">
                             Activation Phase
                         </h1>
                         <p className="text-xl font-medium text-muted-foreground italic">

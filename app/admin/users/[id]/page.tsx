@@ -136,7 +136,7 @@ export default async function AdminUserDetailPage({
 
     return (
         <div className="container mx-auto max-w-4xl animate-in p-4 duration-700 fade-in slide-in-from-bottom-4 sm:p-6 lg:p-8">
-            <div className="flex flex-col space-y-8">
+            <div className="flex min-w-0 flex-col space-y-8">
                 <div className="flex flex-col space-y-4">
                     <div className="flex flex-wrap items-center justify-between gap-4">
                         <Link
@@ -201,7 +201,7 @@ export default async function AdminUserDetailPage({
                     </div>
                 </div>
 
-                {/* Phase 1 — Connection */}
+                {/* Phase 1: Connection */}
                 <Section
                     title="Getting to Know You"
                     subtitle="Phase 1 · Step 1B"
@@ -259,7 +259,7 @@ export default async function AdminUserDetailPage({
                         value={homeAudit.chaos}
                     />
                     <Field
-                        label="When during the day do you feel the most overwhelmed—and what is happening at that time?"
+                        label="When during the day do you feel the most overwhelmed, and what is happening at that time?"
                         value={homeAudit.overwhelmTime}
                     />
                     <Field
@@ -271,7 +271,7 @@ export default async function AdminUserDetailPage({
                         value={homeAudit.ninetyDayCost}
                     />
                     <Field
-                        label="What routines currently exist in your home—and are they actually followed?"
+                        label="What routines currently exist in your home, and are they actually followed?"
                         value={homeAudit.routines}
                     />
                     <Field
@@ -279,7 +279,7 @@ export default async function AdminUserDetailPage({
                         value={homeAudit.breakdownAreas}
                     />
                     <Field
-                        label='What responsibilities are clearly assigned—and what is just "assumed" you will handle?'
+                        label='What responsibilities are clearly assigned, and what is just "assumed" you will handle?'
                         value={homeAudit.assumedResponsibilities}
                     />
                     <Field
@@ -291,7 +291,7 @@ export default async function AdminUserDetailPage({
                         value={homeAudit.ownVsDirect}
                     />
                     <Field
-                        label="Where are you over-functioning—and where should you actually be leading instead of doing?"
+                        label="Where are you over-functioning, and where should you actually be leading instead of doing?"
                         value={homeAudit.overFunctioning}
                     />
                     <Field
@@ -308,7 +308,7 @@ export default async function AdminUserDetailPage({
                     />
                 </Section>
 
-                {/* Phase 2 — Awareness */}
+                {/* Phase 2: Awareness */}
                 <Section
                     title="360° Feedback Circle"
                     subtitle="Phase 2 · Step 2A"
@@ -324,7 +324,7 @@ export default async function AdminUserDetailPage({
                                 .filter((p) => p?.name || p?.email)
                                 .map((person, i) => (
                                     <p key={i} className="text-foreground">
-                                        {person.name || "—"}
+                                        {person.name || "-"}
                                         {person.email && (
                                             <span className="text-muted-foreground">
                                                 {" "}
@@ -359,7 +359,7 @@ export default async function AdminUserDetailPage({
                     />
                 </Section>
 
-                {/* Phase 3 — Stabilization */}
+                {/* Phase 3: Stabilization */}
                 <Section title="Vision Activation" subtitle="Phase 3 · Step 3A">
                     {DOMAINS.map((domain) => (
                         <Field

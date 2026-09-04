@@ -31,22 +31,22 @@ export function AdminHeader() {
 
     return (
         <header className="border-b border-border/60 bg-background/90 backdrop-blur-md">
-            <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center gap-2.5">
+            <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+                <div className="flex min-w-0 items-center gap-2.5">
                     <img
                         src="/assets/logo.png"
                         alt="Peace-Driven Leader"
-                        className="h-7 w-auto object-contain"
+                        className="h-7 w-auto shrink-0 object-contain"
                     />
-                    <span className="font-serif text-base font-medium tracking-tight text-foreground">
+                    <span className="hidden truncate font-serif text-base font-medium tracking-tight text-foreground sm:inline">
                         The Peace-Driven Leader
-                        <span className="ml-1.5 text-xs font-semibold tracking-wider text-muted-foreground uppercase">
-                            Admin
-                        </span>
+                    </span>
+                    <span className="shrink-0 text-xs font-semibold tracking-wider text-muted-foreground uppercase">
+                        Admin
                     </span>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex shrink-0 items-center gap-2">
                     <ModeToggle />
                     <Button
                         variant="outline"
@@ -55,7 +55,7 @@ export function AdminHeader() {
                         className="h-9 gap-2 rounded-xl px-3 text-xs"
                     >
                         <LogOut className="h-3.5 w-3.5" />
-                        Log out
+                        <span className="hidden sm:inline">Log out</span>
                     </Button>
                 </div>
             </div>

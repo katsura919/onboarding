@@ -121,7 +121,7 @@ export function LeadTracker({ initialLeads }: { initialLeads: Lead[] }) {
                         Lead Tracker
                     </h2>
                     <p className="mt-1 text-sm text-muted-foreground">
-                        Prospects who haven&apos;t signed up yet—track them
+                        Prospects who haven&apos;t signed up yet. Track them
                         through the pipeline.
                     </p>
                 </div>
@@ -241,12 +241,12 @@ export function LeadTracker({ initialLeads }: { initialLeads: Lead[] }) {
                                                     <span>{lead.phone}</span>
                                                 )}
                                                 {!lead.email && !lead.phone && (
-                                                    <span>—</span>
+                                                    <span>-</span>
                                                 )}
                                             </div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-muted-foreground">
-                                            {lead.source || "—"}
+                                            {lead.source || "-"}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <select
@@ -288,7 +288,7 @@ export function LeadTracker({ initialLeads }: { initialLeads: Lead[] }) {
                                                 type="text"
                                                 defaultValue={lead.notes ?? ""}
                                                 disabled={isPending}
-                                                placeholder="—"
+                                                placeholder="-"
                                                 onBlur={(e) => {
                                                     const value =
                                                         e.target.value || null

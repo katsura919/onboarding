@@ -70,7 +70,7 @@
     --ring: #b6954a;
     --radius: 10px;
     --radius-lg: 34px;
-    
+
     /* Branding extras */
     --gold: #b6954a;
     --gold-soft: #f1ddb0;
@@ -100,14 +100,16 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+    * {
+        @apply border-border outline-ring/50;
     }
-  body {
-    @apply bg-background text-foreground;
+    body {
+        @apply bg-background text-foreground;
+        overflow-x: hidden;
     }
-  html {
-    @apply font-sans;
+    html {
+        @apply font-sans;
+        overflow-x: hidden;
     }
 }
 

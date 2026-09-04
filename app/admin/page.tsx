@@ -44,7 +44,7 @@ export default async function AdminPage() {
 
     return (
         <div className="container mx-auto max-w-7xl animate-in p-4 duration-700 fade-in slide-in-from-bottom-4 sm:p-6 lg:p-8">
-            <div className="flex flex-col space-y-8">
+            <div className="flex min-w-0 flex-col space-y-8">
                 <div className="flex flex-col space-y-2">
                     <div className="inline-flex items-center gap-3 text-[10px] font-semibold tracking-[0.2em] text-muted-foreground uppercase">
                         <span className="h-px w-5 bg-border" />

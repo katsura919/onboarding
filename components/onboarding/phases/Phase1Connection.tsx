@@ -394,9 +394,9 @@ export function Phase1Connection({
                             Divine Identity Uncovered
                         </h2>
                         <p className="text-lg leading-relaxed text-muted-foreground">
-                            This reveals your Divine Identity—The Real
-                            You—uncovered from the weight of past experiences
-                            and the noise of your present reality.
+                            This reveals your Divine Identity, The Real You,
+                            uncovered from the weight of past experiences and
+                            the noise of your present reality.
                         </p>
                     </div>
                     <Button
@@ -422,7 +422,7 @@ export function Phase1Connection({
                             Your Peace-Driven Home Audit
                         </h2>
                         <p className="leading-relaxed text-muted-foreground">
-                            An honest look at where things stand today—not the
+                            An honest look at where things stand today, not the
                             highlight reel, not the ideal version. Just the
                             truth of your home, right now.
                         </p>
@@ -451,7 +451,7 @@ export function Phase1Connection({
                                     {
                                         field: "homeAudit_overwhelmTime",
                                         question:
-                                            "2. When during the day do you feel the most overwhelmed—and what is happening at that time?",
+                                            "2. When during the day do you feel the most overwhelmed, and what is happening at that time?",
                                         helper: "Find the pressure points.",
                                     },
                                     {
@@ -485,7 +485,7 @@ export function Phase1Connection({
                                     strokeWidth={1.5}
                                 />
                                 <h3 className="font-serif text-xl font-medium">
-                                    🏡 Systems + Structure Awareness
+                                    Systems + Structure Awareness
                                 </h3>
                             </div>
                             <div className="space-y-6">
@@ -493,7 +493,7 @@ export function Phase1Connection({
                                     {
                                         field: "homeAudit_routines",
                                         question:
-                                            "5. What routines currently exist in your home (morning, after school, bedtime)—and are they actually followed?",
+                                            "5. What routines currently exist in your home (morning, after school, bedtime), and are they actually followed?",
                                         helper: "Honest audit, not ideal version.",
                                     },
                                     {
@@ -505,7 +505,7 @@ export function Phase1Connection({
                                     {
                                         field: "homeAudit_assumedResponsibilities",
                                         question:
-                                            '7. What responsibilities are clearly assigned—and what is just "assumed" you will handle?',
+                                            '7. What responsibilities are clearly assigned, and what is just "assumed" you will handle?',
                                         helper: "This is where resentment lives.",
                                     },
                                 ].map((q) => (
@@ -527,7 +527,7 @@ export function Phase1Connection({
                                     strokeWidth={1.5}
                                 />
                                 <h3 className="font-serif text-xl font-medium">
-                                    👨‍👩‍👧‍👦 Leadership + Family Alignment
+                                    Leadership + Family Alignment
                                 </h3>
                             </div>
                             <div className="space-y-6">
@@ -547,7 +547,7 @@ export function Phase1Connection({
                                     {
                                         field: "homeAudit_overFunctioning",
                                         question:
-                                            "10. Where are you over-functioning—and where should you actually be leading instead of doing?",
+                                            "10. Where are you over-functioning, and where should you actually be leading instead of doing?",
                                         helper: "",
                                     },
                                 ].map((q) => (
@@ -569,7 +569,7 @@ export function Phase1Connection({
                                     strokeWidth={1.5}
                                 />
                                 <h3 className="font-serif text-xl font-medium">
-                                    💭 Clarity + Vision Reset
+                                    Clarity + Vision Reset
                                 </h3>
                             </div>
                             <div className="space-y-6">
@@ -577,7 +577,7 @@ export function Phase1Connection({
                                     {
                                         field: "homeAudit_peacefulVision",
                                         question:
-                                            '11. What would a "peaceful and well-run home" actually look like for YOU—not Instagram?',
+                                            '11. What would a "peaceful and well-run home" actually look like for YOU, not Instagram?',
                                         helper: "Define your version of peace.",
                                     },
                                     {
@@ -606,7 +606,7 @@ export function Phase1Connection({
                                 strokeWidth={1.5}
                             />
                             <p className="text-sm font-bold tracking-wider text-primary uppercase">
-                                💡 Step Towards Embodiment
+                                Step Towards Embodiment
                             </p>
                         </div>
                         <h2 className="font-serif text-2xl font-medium italic">

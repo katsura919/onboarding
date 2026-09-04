@@ -254,7 +254,7 @@ function setPath(target: Record<string, any>, path: string[], value: unknown) {
  * "onboardingStatus.currentPhase": 2 }) onto the user's jsonb columns.
  * Mirrors the flexible dot-path update shape the onboarding UI already
  * sends (a holdover from Mongoose's $set), since Postgres jsonb has no
- * built-in equivalent — so we fetch, deep-merge in JS, and write back
+ * built-in equivalent - so we fetch, deep-merge in JS, and write back
  * only the jsonb columns actually touched.
  */
 export async function updateUserFields(

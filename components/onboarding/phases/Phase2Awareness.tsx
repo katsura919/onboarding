@@ -61,7 +61,7 @@ export function Phase2Awareness({
                             ).map((person: any, i: number) => (
                                 <div
                                     key={i}
-                                    className="flex animate-in gap-4 duration-300 slide-in-from-left-2"
+                                    className="flex animate-in flex-col gap-4 duration-300 slide-in-from-left-2 sm:flex-row"
                                     style={{ animationDelay: `${i * 100}ms` }}
                                 >
                                     <input
