@@ -1,0 +1,59 @@
+"use client"
+
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
+import { LogOut } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { ModeToggle } from "@/components/mode-toggle"
+
+export function AdminHeader() {
+    const router = useRouter()
+
+    async function handleLogout() {
+        try {
+            const res = await fetch("/api/auth/logout", { method: "POST" })
+            if (res.ok) {
+                toast.success("Logged out")
+                router.push("/login")
+                router.refresh()
+            } else {
+                throw new Error("Logout failed")
+            }
+        } catch {
+            toast.error("Error logging out")
+        }
+    }
+
+    return (
+        <header className="border-b border-border/60 bg-background/90 backdrop-blur-md">
+            <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+                <div className="flex items-center gap-2.5">
+                    <img
+                        src="/assets/logo.png"
+                        alt="Peace-Driven Leader"
+                        className="h-7 w-auto object-contain"
+                    />
+                    <span className="font-serif text-base font-medium tracking-tight text-foreground">
+                        The Peace-Driven Leader
+                        <span className="ml-1.5 text-xs font-semibold tracking-wider text-muted-foreground uppercase">
+                            Admin
+                        </span>
+                    </span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                    <ModeToggle />
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handleLogout}
+                        className="h-9 gap-2 rounded-xl px-3 text-xs"
+                    >
+                        <LogOut className="h-3.5 w-3.5" />
+                        Log out
+                    </Button>
+                </div>
+            </div>
+        </header>
+    )
+}
