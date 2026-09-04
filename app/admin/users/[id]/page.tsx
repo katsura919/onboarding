@@ -4,6 +4,7 @@ import { jwtVerify } from "jose"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { findUserById } from "@/lib/db/users"
+import { isAdminEmail } from "@/lib/admin"
 import { cn } from "@/lib/utils"
 
 const JWT_SECRET = process.env.JWT_SECRET || "peace-driven-default-secret-key"
@@ -108,7 +109,7 @@ export default async function AdminUserDetailPage({
     if (!viewer.isActive) {
         redirect("/api/auth/logout")
     }
-    if (!viewer.isAdmin) {
+    if (!isAdminEmail(viewer.email)) {
         redirect("/dashboard")
     }
 

@@ -3,6 +3,7 @@ import { cookies } from "next/headers"
 import { jwtVerify } from "jose"
 import { findUserById, listUsers } from "@/lib/db/users"
 import { listLeads } from "@/lib/db/leads"
+import { isAdminEmail } from "@/lib/admin"
 import { AdminUsersTable } from "@/components/admin/users-table"
 import { LeadTracker } from "@/components/admin/lead-tracker"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -35,7 +36,7 @@ export default async function AdminPage() {
     if (!viewer.isActive) {
         redirect("/api/auth/logout")
     }
-    if (!viewer.isAdmin) {
+    if (!isAdminEmail(viewer.email)) {
         redirect("/dashboard")
     }
 

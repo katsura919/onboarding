@@ -7,10 +7,16 @@ import {
     setUserPayment,
     type PaymentStatus,
 } from "@/lib/db/users"
+import { isAdminEmail } from "@/lib/admin"
 
 const JWT_SECRET = process.env.JWT_SECRET || "peace-driven-default-secret-key"
 
-const PAYMENT_STATUSES: PaymentStatus[] = ["trial", "paid", "renewal_due", "expired"]
+const PAYMENT_STATUSES: PaymentStatus[] = [
+    "trial",
+    "paid",
+    "renewal_due",
+    "expired",
+]
 
 async function requireAdmin() {
     const cookieStore = await cookies()
@@ -18,10 +24,13 @@ async function requireAdmin() {
     if (!token) return null
 
     try {
-        const { payload } = await jwtVerify(token, new TextEncoder().encode(JWT_SECRET))
+        const { payload } = await jwtVerify(
+            token,
+            new TextEncoder().encode(JWT_SECRET)
+        )
         const userId = (payload as any).userId
         const viewer = await findUserById(userId)
-        if (!viewer?.isAdmin) return null
+        if (!viewer || !isAdminEmail(viewer.email)) return null
         return viewer
     } catch {
         return null
@@ -44,7 +53,10 @@ export async function PATCH(
 
         const target = await findUserById(id)
         if (!target) {
-            return NextResponse.json({ error: "User not found" }, { status: 404 })
+            return NextResponse.json(
+                { error: "User not found" },
+                { status: 404 }
+            )
         }
 
         if (isActive !== undefined) {

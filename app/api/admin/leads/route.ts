@@ -3,6 +3,7 @@ import { cookies } from "next/headers"
 import { jwtVerify } from "jose"
 import { findUserById } from "@/lib/db/users"
 import { createLead, listLeads } from "@/lib/db/leads"
+import { isAdminEmail } from "@/lib/admin"
 
 const JWT_SECRET = process.env.JWT_SECRET || "peace-driven-default-secret-key"
 
@@ -18,7 +19,7 @@ async function requireAdmin() {
         )
         const userId = (payload as any).userId
         const viewer = await findUserById(userId)
-        if (!viewer?.isAdmin) return null
+        if (!viewer || !isAdminEmail(viewer.email)) return null
         return viewer
     } catch {
         return null
